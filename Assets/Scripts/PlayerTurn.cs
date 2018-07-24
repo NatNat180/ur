@@ -19,6 +19,7 @@ public class PlayerTurn : MonoBehaviour {
 	public Button P2Roll;
 	private bool isP1Turn;
 	private bool isP2Turn;
+	private bool playerAlreadyRolled;
 	private int rolledNumber;
 
 	void Start () {
@@ -28,8 +29,10 @@ public class PlayerTurn : MonoBehaviour {
 	
 	void Update () {
 		if (isP1Turn) {
-			P1Roll.onClick.AddListener(P1RollEvent);
 			P2Roll.onClick.RemoveListener(P2RollEvent);
+			if (playerAlreadyRolled == false) {
+				P1Roll.onClick.AddListener(P1RollEvent);
+			}
 			play(rolledNumber, P1Roll);
 		}
 
@@ -43,6 +46,8 @@ public class PlayerTurn : MonoBehaviour {
 	void P1RollEvent() {
 		rolledNumber = Random.Range(rollMin, rollMax);
 		Debug.Log("Player 1 rolled a " + rolledNumber + "!");
+		playerAlreadyRolled = true;
+		P1Roll.onClick.RemoveAllListeners();
 	}
 
 	void P2RollEvent() {
@@ -53,6 +58,7 @@ public class PlayerTurn : MonoBehaviour {
 	void play (int rolledNumber, Button playerButton) {
 		if (rolledNumber > 0) {
 			// play logic
+			// After play is done, reset playerAlreadyRolled to false, and switch player turn
 			StartCoroutine(Timer());
 		}
 	}
