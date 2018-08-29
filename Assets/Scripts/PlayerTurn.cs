@@ -11,60 +11,72 @@ using UnityEngine.UI;
  * - Display roll number after a player rolls
  */
 
-public class PlayerTurn : MonoBehaviour {
+public class PlayerTurn : MonoBehaviour
+{
 
-	public int rollMin = 0;
-	public int rollMax = 5;
-	public Button P1Roll;
-	public Button P2Roll;
-	private bool isP1Turn;
-	private bool isP2Turn;
-	private bool playerAlreadyRolled;
-	private int rolledNumber;
+    public int rollMin = 0;
+    public int rollMax = 5;
+    public Button p1Roll;
+    public Button p2Roll;
+    public static bool isP1Turn;
+    public static bool isP2Turn;
+    public static bool playerAlreadyRolled;
+    public static int rolledNumber;
+    public Transform[] p1Pieces;
+    public Transform[] p2Pieces;
+    public Transform[] p1SafeZone;
+    public Transform[] p2SafeZone;
+    public Transform[] warZone;
 
-	void Start () {
-		// Let Player 1 go first
-		isP1Turn = true;
-	}
-	
-	void Update () {
-		if (isP1Turn) {
-			P2Roll.onClick.RemoveListener(P2RollEvent);
-			if (playerAlreadyRolled == false) {
-				P1Roll.onClick.AddListener(P1RollEvent);
-			}
-			play(rolledNumber, P1Roll);
-		}
+    void Start() {
+        // Let Player 1 go first
+        isP1Turn = true;
+    }
 
-		if (isP2Turn) {
-			P2Roll.onClick.AddListener(P2RollEvent);
-			P1Roll.onClick.RemoveListener(P1RollEvent);
-			play(rolledNumber, P2Roll);
-		}
-	}
+    void Update() {
+        if (isP1Turn) {
+            p2Roll.onClick.RemoveListener(p2RollEvent);
+            if (playerAlreadyRolled == false) {
+                p1Roll.onClick.AddListener(p1RollEvent);
+            }
+            play(rolledNumber, p1Roll);
+        }
 
-	void P1RollEvent() {
-		rolledNumber = Random.Range(rollMin, rollMax);
-		Debug.Log("Player 1 rolled a " + rolledNumber + "!");
-		playerAlreadyRolled = true;
-		P1Roll.onClick.RemoveAllListeners();
-	}
+        if (isP2Turn) {
+            p1Roll.onClick.RemoveListener(p1RollEvent);
+            if (playerAlreadyRolled == false) {
+                p2Roll.onClick.AddListener(p2RollEvent);
+            }
+            play(rolledNumber, p2Roll);
+        }
+    }
 
-	void P2RollEvent() {
-		rolledNumber = Random.Range(rollMin, rollMax);
-		Debug.Log("Player 2 rolled a " + rolledNumber + "!");
-	}
+    void p1RollEvent() {
+        rolledNumber = Random.Range(rollMin, rollMax);
+        Debug.Log("Player 1 rolled a " + rolledNumber + "!");
+        // if logic to go here in case player is on special tile, allowing for a second roll, otherwise...
+        playerAlreadyRolled = true;
+        p1Roll.onClick.RemoveAllListeners();
+    }
 
-	void play (int rolledNumber, Button playerButton) {
-		if (rolledNumber > 0) {
-			// play logic
-			// After play is done, reset playerAlreadyRolled to false, and switch player turn
-			StartCoroutine(Timer());
-		}
-	}
+    void p2RollEvent() {
+        rolledNumber = Random.Range(rollMin, rollMax);
+        Debug.Log("Player 2 rolled a " + rolledNumber + "!");
+        // if logic to go here in case player is on special tile, allowing for a second roll, otherwise...
+        playerAlreadyRolled = true;
+        p2Roll.onClick.RemoveAllListeners();
+    }
 
-	IEnumerator Timer() {
-		yield return new WaitForSeconds(5f);
-	}
-		
+    void play(int rolledNumber, Button playerButton) {
+        if (rolledNumber > 0) {
+            // play logic
+            // After play is done, reset playerAlreadyRolled to false, and switch player turn
+            StartCoroutine(Timer());
+        }
+    }
+
+    IEnumerator Timer() {
+        yield return new WaitForSeconds(3f);
+    }
+
 }

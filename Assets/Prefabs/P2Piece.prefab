@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33259120035261152}
   - component: {fileID: 23066682062735632}
   - component: {fileID: 135324472408994584}
+  - component: {fileID: 114430610855507012}
   m_Layer: 0
   m_Name: P2Piece
-  m_TagString: Untagged
+  m_TagString: P2Piece
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1103608508779130}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114430610855507012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1103608508779130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cad295abb38dea408b36db08d93e7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135324472408994584
 SphereCollider:
   m_ObjectHideFlags: 1
